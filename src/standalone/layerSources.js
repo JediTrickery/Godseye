@@ -20,6 +20,7 @@ import { createCycloneSource } from '../layers/cyclones/source.js';
 import { createWindSource } from '../layers/wind/source.js';
 import { createFirmsSource } from '../layers/firms/source.js';
 import { createMapillarySource } from '../layers/streetLevel/providers/mapillary/source.js';
+import { createAirQualitySource } from '../layers/airNowAirQuality/source.js';
 import { createReferenceSources } from '../sources/reference.js';
 export { createReferenceSources as createStandaloneReferenceSources } from '../sources/reference.js';
 
@@ -56,6 +57,7 @@ export function createStandaloneLayerSources(overrides = {}) {
     mapillary: createMapillarySource({
       token: import.meta.env?.MAPILLARY_CLIENT_TOKEN || '',
     }),
+    airQuality: createAirQualitySource(),
   };
   for (const name of Object.keys(overrides)) {
     if (!Object.hasOwn(defaults, name))

@@ -28,6 +28,7 @@ import { createApplicationAirQuality } from './layers/airQuality.js';
 import { createApplicationFirePerimeters } from './layers/perimeters.js';
 import { createApplicationGnssIntegrity } from './layers/gnss.js';
 import { createApplicationNwsAlerts } from './layers/nwsAlerts.js';
+import { createApplicationAirQuality as createApplicationAirNowAirQuality } from './layers/airNowAirQuality.js';
 import { createApplicationCables } from './layers/submarineCables.js';
 import { createApplicationStreetLevel } from './layers/streetLevel.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
@@ -128,6 +129,7 @@ export function createApplicationCatalog({
           source: sources['gnss-integrity'],
         }),
         createApplicationNwsAlerts({ source: sources.nwsAlerts }),
+        createApplicationAirNowAirQuality({ source: sources.airQuality }),
         createApplicationAlpr({ surface, source: sources.alpr }),
         createApplicationStreetLevel({
           surface,
