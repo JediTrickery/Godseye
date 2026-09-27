@@ -62,22 +62,31 @@ test('a zone-only alert (no geometry) is skipped, not rejected', () => {
   assert.deepEqual(rows, []);
 });
 
-test('an unsupported geometry type rejects the whole snapshot', () => {
+test('an unsupported geometry type skips only that alert', () => {
   const bad = { ...feature(), geometry: { type: 'Point', coordinates: [-74, 40] } };
-  assert.equal(normalizeAlertSnapshot(collection([bad])), null);
+  const good = feature({ id: 'good-1' });
+  assert.deepEqual(normalizeAlertSnapshot(collection([bad, good])).map((r) => r.id), [
+    'good-1',
+  ]);
 });
 
-test('an unknown severity value rejects the whole snapshot', () => {
-  const bad = feature({ severity: 'Catastrophic' });
-  assert.equal(normalizeAlertSnapshot(collection([bad])), null);
+test('an unrecognized severity value falls back to Unknown rather than dropping the alert', () => {
+  const rows = normalizeAlertSnapshot(
+    collection([feature({ severity: 'Catastrophic' })]),
+  );
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].severity, 'Unknown');
 });
 
-test('an unparseable effective/expires timestamp rejects the whole snapshot', () => {
+test('an unparseable effective/expires timestamp skips only that alert', () => {
   const bad = feature({ effective: 'not-a-date' });
-  assert.equal(normalizeAlertSnapshot(collection([bad])), null);
+  const good = feature({ id: 'good-2' });
+  assert.deepEqual(normalizeAlertSnapshot(collection([bad, good])).map((r) => r.id), [
+    'good-2',
+  ]);
 });
 
-test('out-of-range coordinates reject the whole snapshot', () => {
+test('out-of-range coordinates skip only that alert', () => {
   const bad = {
     ...feature(),
     geometry: {
@@ -92,20 +101,33 @@ test('out-of-range coordinates reject the whole snapshot', () => {
       ],
     },
   };
-  assert.equal(normalizeAlertSnapshot(collection([bad])), null);
+  const good = feature({ id: 'good-3' });
+  assert.deepEqual(normalizeAlertSnapshot(collection([bad, good])).map((r) => r.id), [
+    'good-3',
+  ]);
 });
 
-test('a duplicate alert id rejects the whole snapshot', () => {
-  assert.equal(
-    normalizeAlertSnapshot(collection([feature(), feature()])),
-    null,
-  );
+test('a duplicate alert id keeps only the first occurrence', () => {
+  const rows = normalizeAlertSnapshot(collection([feature(), feature()]));
+  assert.equal(rows.length, 1);
 });
 
-test('a missing required field rejects the whole snapshot', () => {
-  const bad = feature({ areaDesc: undefined });
+test('a missing required field skips only that alert', () => {
+  const bad = feature();
   delete bad.properties.areaDesc;
-  assert.equal(normalizeAlertSnapshot(collection([bad])), null);
+  const good = feature({ id: 'good-4' });
+  assert.deepEqual(normalizeAlertSnapshot(collection([bad, good])).map((r) => r.id), [
+    'good-4',
+  ]);
+});
+
+test('a very long areaDesc (a real multi-county warning) is accepted, not truncated away', () => {
+  const longAreaDesc = Array.from({ length: 60 }, (_, i) => `County ${i}, NJ`).join('; ');
+  const rows = normalizeAlertSnapshot(
+    collection([feature({ areaDesc: longAreaDesc })]),
+  );
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].areaDesc, longAreaDesc);
 });
 
 test('a non-FeatureCollection payload is rejected outright', () => {
