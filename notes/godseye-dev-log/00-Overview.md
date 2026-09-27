@@ -18,6 +18,7 @@ This is a **map of contents (MOC)** — start here, then follow the links below.
 - [[05-Air-Quality-Layer|Air Quality (AQI) Layer (AirNow)]] — the second new layer, built with a more careful verify-before-code approach after the NWS lesson.
 - [[06-Lessons-Learned|Lessons Learned — Guessing vs. Verifying]] — the throughline lesson across both new layers, worth reading even out of order.
 - [[07-Open-Items-and-Ideas|Open Items & Ideas]] — what's still on the table.
+- [[08-Watch-Duty-Feed-Parity|Watch Duty Feed Parity]] — every feed the Watch Duty wildfire app shows, what GEV already covers, and a build order for the rest.
 
 ## Quick facts
 

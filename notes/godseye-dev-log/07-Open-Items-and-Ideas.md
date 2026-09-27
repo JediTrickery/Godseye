@@ -13,6 +13,7 @@ Related: [[00-Overview]]
 - [x] Cesium ion, TomTom, NASA FIRMS, AISStream keys configured — see [[02-Provider-Keys-and-Power-Up]].
 
 ## New data layer ideas (not built, all free/keyless in principle)
+- **Wildfire parity with Watch Duty** — WFIGS incidents/perimeters, more FIRMS sources, GOES fire detections, river gauges, firefighting-aircraft filter and more. Full breakdown and build order in [[08-Watch-Duty-Feed-Parity]].
 - **GDACS** — global disaster alerts (floods, cyclones, volcanoes, droughts) with severity ratings; broader-hazard-coverage cousin of the earthquake layer.
 - **NOAA Space Weather** — aurora forecast / solar flare activity. Thematically relevant since the app already tracks real satellites, which is exactly what solar storms threaten.
 - **Cloudflare Radar** — real-time internet outage/connectivity data by country. A completely different category (infrastructure, not physical-world hazard) from everything else in the app.
