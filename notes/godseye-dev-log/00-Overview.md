@@ -20,6 +20,7 @@ This is a **map of contents (MOC)** — start here, then follow the links below.
 - [[07-Open-Items-and-Ideas|Open Items & Ideas]] — what's still on the table.
 - [[08-Watch-Duty-Feed-Parity|Watch Duty Feed Parity]] — every feed the Watch Duty wildfire app shows, what GEV already covers, and a build order for the rest.
 - [[09-New-Jersey-Adaptation|New Jersey Adaptation]] — which national fire feeds work in NJ, NJ-specific sources (NJ Forest Fire Service map and fire danger, fire towers, Rutgers mesonet, tides) and an NJ build order.
+- [[10-Handoff-Wildfire-Feed-Research|Handoff: Wildfire Feed Research]] — standalone summary of the Watch Duty and New Jersey research thread: findings, limits, open decisions, next steps.
 
 ## Quick facts
 
