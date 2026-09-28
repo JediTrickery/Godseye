@@ -39,9 +39,12 @@ export function airQualityProxy({
   let attemptedAt = -Infinity;
 
   async function fetchHour(atMs, signal) {
+    // 'follow' (the fetch default): files.airnowtech.org has been observed to
+    // redirect (e.g. https-enforcement / CDN routing) — a browser follows
+    // this transparently, but 'error' here would fail every single request.
     const response = await fetchImpl(fileUrl(atMs), {
       signal,
-      redirect: 'error',
+      redirect: 'follow',
       headers: { Accept: 'text/csv, text/plain, */*' },
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -56,9 +59,19 @@ export function airQualityProxy({
     let sites;
     try {
       sites = await fetchHour(current, signal);
-    } catch {
+    } catch (err) {
+      console.warn(
+        `[air-quality] current-hour fetch failed (${err?.message || err}), falling back one hour`,
+      );
       signal.throwIfAborted();
-      sites = await fetchHour(current - HOUR_MS, signal);
+      try {
+        sites = await fetchHour(current - HOUR_MS, signal);
+      } catch (fallbackErr) {
+        console.warn(
+          `[air-quality] fallback-hour fetch also failed: ${fallbackErr?.message || fallbackErr}`,
+        );
+        throw fallbackErr;
+      }
     }
     signal.throwIfAborted();
     cache = { sites, at: current };
