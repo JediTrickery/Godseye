@@ -54,28 +54,34 @@ export function airQualityProxy({
     return sites;
   }
 
+  // Observed in practice: the current UTC hour's file, and sometimes the
+  // prior one too, can 404 — publish lag is not reliably under an hour.
+  // Walk backward until one actually exists rather than assuming a fixed
+  // cushion; MAX_HOURS_BACK bounds how stale a result this will accept.
+  const MAX_HOURS_BACK = 5;
+
   async function refresh(signal) {
     const current = now();
-    let sites;
-    try {
-      sites = await fetchHour(current, signal);
-    } catch (err) {
-      console.warn(
-        `[air-quality] current-hour fetch failed (${err?.message || err}), falling back one hour`,
-      );
+    let lastErr;
+    for (let hoursBack = 0; hoursBack <= MAX_HOURS_BACK; hoursBack++) {
       signal.throwIfAborted();
       try {
-        sites = await fetchHour(current - HOUR_MS, signal);
-      } catch (fallbackErr) {
+        const sites = await fetchHour(current - hoursBack * HOUR_MS, signal);
+        if (hoursBack > 0) {
+          console.warn(
+            `[air-quality] using the file from ${hoursBack}h ago (more recent hours were not yet published)`,
+          );
+        }
+        cache = { sites, at: current };
+        return cache;
+      } catch (err) {
+        lastErr = err;
         console.warn(
-          `[air-quality] fallback-hour fetch also failed: ${fallbackErr?.message || fallbackErr}`,
+          `[air-quality] ${hoursBack === 0 ? 'current-hour' : `${hoursBack}h-back`} fetch failed: ${err?.message || err}`,
         );
-        throw fallbackErr;
       }
     }
-    signal.throwIfAborted();
-    cache = { sites, at: current };
-    return cache;
+    throw lastErr;
   }
 
   async function acquire(signal) {
