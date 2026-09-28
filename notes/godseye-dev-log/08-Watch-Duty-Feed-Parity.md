@@ -5,7 +5,7 @@ created: 2026-09-27
 
 # Watch Duty Feed Parity — What It Sees, and How GEV Could See It Too
 
-Related: [[00-Overview]] · [[03-Adding-a-Data-Layer-Pattern]] · [[06-Lessons-Learned]] · [[07-Open-Items-and-Ideas]]
+Related: [[00-Overview]] · [[09-New-Jersey-Adaptation]] · [[03-Adding-a-Data-Layer-Pattern]] · [[06-Lessons-Learned]] · [[07-Open-Items-and-Ideas]]
 
 A research note, not a build log. It lists every map layer the **Watch Duty** wildfire app shows, the upstream feed behind each one, what God's Eye View (GEV) already covers, and what it would take to add the rest.
 
