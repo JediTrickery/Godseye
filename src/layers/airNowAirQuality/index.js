@@ -26,8 +26,8 @@ export function createAirQualityLayer({ source, overlayHost } = {}) {
   let _records = [];
 
   const layer = {
-    id: 'air-quality',
-    name: 'Air Quality (AQI)',
+    id: 'air-quality-airnow',
+    name: 'Air Quality (AirNow)',
     icon: '🫧',
     source: 'AirNow',
     updateInterval: 600000,

@@ -24,7 +24,7 @@ import { createApplicationAwareness } from './layers/militaryAwareness.js';
 import { createApplicationFirms } from './layers/firms.js';
 import { createApplicationEarthquakes } from './layers/earthquakes.js';
 import { createApplicationNwsAlerts } from './layers/nwsAlerts.js';
-import { createApplicationAirQuality } from './layers/airQuality.js';
+import { createApplicationAirQuality } from './layers/airNowAirQuality.js';
 import { createApplicationCables } from './layers/submarineCables.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
 import { localGeoJsonServices } from './localGeojsonServices.js';

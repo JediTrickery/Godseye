@@ -56,7 +56,7 @@ const PANEL_GROUPS = [
       'weather-satellite',
       'weather-lightning',
       'weather-cyclones',
-      'air-quality',
+      'air-quality-airnow',
     ],
   },
   {
