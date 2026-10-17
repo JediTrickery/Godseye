@@ -1,4 +1,5 @@
 import * as Cesium from 'cesium';
+import { msg } from '../../i18n/index.js';
 import {
   NWS_ALERTS_OVERLAY_SOURCE_ID,
   NWS_ALERTS_OVERLAY_COHORT_LIMIT,
@@ -168,7 +169,7 @@ export function createNwsAlertsLayer({ source, overlayHost } = {}) {
         if (request.signal.aborted || _request !== request || !_enabled)
           return false;
         console.warn('[Data:NwsAlerts] Fetch error:', e);
-        _lastError = e?.message || 'NWS alerts source unavailable';
+        _lastError = e?.message || msg('NWS alerts source unavailable');
         return false;
       } finally {
         if (_request === request) _request = null;

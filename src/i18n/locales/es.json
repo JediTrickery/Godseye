@@ -2889,5 +2889,10 @@
   "USB work abandoned after a stalled transfer": "Trabajo USB cancelado tras una transferencia bloqueada",
   "SDR decoder did not start; receiver stopped": "El decodificador SDR no arrancó; receptor detenido",
   "SDR decoder stopped responding; receiver stopped": "El decodificador SDR dejó de responder; receptor detenido",
-  "SDR decoder fell behind; receiver stopped": "El decodificador SDR se quedó atrás; receptor detenido"
+  "SDR decoder fell behind; receiver stopped": "El decodificador SDR se quedó atrás; receptor detenido",
+  "AirNow air quality source unavailable": "Fuente de calidad del aire de AirNow no disponible",
+  "NWS alerts source unavailable": "Fuente de alertas del NWS no disponible",
+  "Air Quality (AirNow)": "Calidad del aire (AirNow)",
+  "Severe Weather Alerts": "Alertas de clima severo",
+  "AQI": "AQI"
 }

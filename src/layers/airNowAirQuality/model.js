@@ -1,6 +1,7 @@
 import * as Cesium from 'cesium';
+import { msg } from '../../i18n/index.js';
 
-export const AIR_QUALITY_OVERLAY_SOURCE_ID = 'air-quality';
+export const AIR_QUALITY_OVERLAY_SOURCE_ID = 'air-quality-airnow';
 export const AIR_QUALITY_OVERLAY_COHORT_LIMIT = 64;
 export const AIR_QUALITY_OVERLAY_COLLISION_CAPACITY = 32;
 
@@ -58,7 +59,7 @@ export function createAirQualityOverlayEntry({ id, position, aqi, accent }) {
     id: String(id),
     position,
     variant: 'label',
-    title: `AQI ${Math.round(aqi)}`,
+    title: `${msg('AQI')} ${Math.round(aqi)}`,
     accent,
     priority: Math.round(aqi * 10),
     collisionGroup: 'ambient-label',

@@ -1,4 +1,5 @@
 import * as Cesium from 'cesium';
+import { msg } from '../../i18n/index.js';
 import {
   AIR_QUALITY_OVERLAY_SOURCE_ID,
   AIR_QUALITY_OVERLAY_COHORT_LIMIT,
@@ -141,7 +142,7 @@ export function createAirQualityLayer({ source, overlayHost } = {}) {
         if (request.signal.aborted || _request !== request || !_enabled)
           return false;
         console.warn('[Data:AirQuality] Fetch error:', e);
-        _lastError = e?.message || 'Air quality source unavailable';
+        _lastError = e?.message || msg('AirNow air quality source unavailable');
         return false;
       } finally {
         if (_request === request) _request = null;
